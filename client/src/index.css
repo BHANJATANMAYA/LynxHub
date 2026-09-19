@@ -1,0 +1,203 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    /* Wispr Flow Signature Color Palette */
+    --wispr-canvas: #FAF9F5;
+    --wispr-cream: #FFFFEB;
+    --wispr-sand: #F3F2EB;
+    --wispr-pine-dark: #062823;
+    --wispr-pine: #034F46;
+    --wispr-pine-light: #0C6258;
+    --wispr-text-main: #1A1A1A;
+    --wispr-text-muted: #5A605D;
+    --wispr-text-subtle: #8A928E;
+    --wispr-border: rgba(26, 26, 26, 0.08);
+    --wispr-border-focus: #034F46;
+    --wispr-accent-lime: #10B981;
+    --wispr-card-dark: #07201D;
+  }
+}
+
+body {
+  font-family: 'Figtree', 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: #FAF9F5;
+  color: #1A1A1A;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+/* Typography styles */
+.font-editorial {
+  font-family: 'EB Garamond', Georgia, serif;
+}
+
+.font-sans-ui {
+  font-family: 'Figtree', 'Inter', sans-serif;
+}
+
+/* Wispr Flow Glass & Surface Effects */
+.wispr-glass-nav {
+  background: rgba(250, 249, 245, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(26, 26, 26, 0.08);
+}
+
+.wispr-glass-dark {
+  background: rgba(7, 32, 29, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 235, 0.12);
+}
+
+.wispr-card {
+  background: #FFFFFF;
+  border: 1px solid rgba(26, 26, 26, 0.08);
+  border-radius: 1.5rem;
+  box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.03);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.wispr-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.06);
+  border-color: rgba(3, 79, 70, 0.2);
+}
+
+.wispr-card-pine {
+  background: #062823;
+  color: #FFFFEB;
+  border: 1px solid rgba(255, 255, 235, 0.1);
+  border-radius: 2rem;
+  box-shadow: 0 16px 40px -12px rgba(6, 40, 35, 0.35);
+}
+
+/* Pill buttons & tabs */
+.wispr-pill {
+  border-radius: 9999px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.wispr-btn-primary {
+  background-color: #034F46;
+  color: #FFFFEB;
+  border-radius: 9999px;
+  font-weight: 500;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 10px rgba(3, 79, 70, 0.2);
+}
+
+.wispr-btn-primary:hover {
+  background-color: #023630;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(3, 79, 70, 0.3);
+}
+
+.wispr-btn-secondary {
+  background-color: #FFFFEB;
+  color: #1A1A1A;
+  border: 1px solid rgba(26, 26, 26, 0.12);
+  border-radius: 9999px;
+  font-weight: 500;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.wispr-btn-secondary:hover {
+  background-color: #F5F5DC;
+  border-color: rgba(26, 26, 26, 0.2);
+  transform: translateY(-1px);
+}
+
+/* Animations & Motions */
+@keyframes logoTicker {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-logo-ticker {
+  display: flex;
+  width: max-content;
+  animation: logoTicker 35s linear infinite;
+}
+
+.animate-logo-ticker:hover {
+  animation-play-state: paused;
+}
+
+/* Animated soundwave bars like Wispr Flow */
+@keyframes soundwave {
+  0%, 100% {
+    height: 6px;
+  }
+  50% {
+    height: 28px;
+  }
+}
+
+.soundwave-bar {
+  animation: soundwave 1.2s ease-in-out infinite;
+}
+
+/* Floating animation */
+@keyframes gentleFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.animate-float {
+  animation: gentleFloat 5s ease-in-out infinite;
+}
+
+/* Pulse glow animation */
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(3, 79, 70, 0.2), inset 0 0 15px rgba(3, 79, 70, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 35px rgba(3, 79, 70, 0.45), inset 0 0 25px rgba(3, 79, 70, 0.2);
+  }
+}
+
+.animate-glow-pulse {
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+/* Custom modern scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(26, 26, 26, 0.15);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(26, 26, 26, 0.3);
+}
+
+/* Backward compatibility classes for existing dashboard */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(26, 26, 26, 0.08);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(26, 26, 26, 0.08);
+}

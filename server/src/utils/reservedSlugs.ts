@@ -1,0 +1,38 @@
+export const RESERVED_SLUGS = new Set([
+  'api',
+  'admin',
+  'login',
+  'signup',
+  'dashboard',
+  'links',
+  'analytics',
+  'bio',
+  'settings',
+  'r',
+  'auth',
+  'public',
+  'static',
+  'assets',
+  'favicon.ico',
+  'robots.txt',
+  'sitemap.xml',
+  'terms',
+  'privacy',
+  'help',
+  'support',
+  'docs',
+  'explore',
+  'me',
+  'user',
+  'users',
+  'null',
+  'undefined',
+  'overview',
+  'reset-password',
+  'forgot-password',
+  'verify-email',
+]);
+
+export function isReservedSlug(slug: string): boolean {
+  return RESERVED_SLUGS.has(slug.toLowerCase().trim());
+}
