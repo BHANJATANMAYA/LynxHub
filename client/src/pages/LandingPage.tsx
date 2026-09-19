@@ -12,7 +12,6 @@ import {
   ChevronRight,
   Menu,
   X,
-  Link as LinkIcon,
   MessageSquare,
   Mail
 } from 'lucide-react';
@@ -105,89 +104,71 @@ export const LandingPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-[#FAF9F5] text-[#1A1A1A] selection:bg-[#034F46] selection:text-[#FFFFEB] font-sans-ui overflow-x-hidden">
       
-      {/* Top Banner (Wispr Flow style) */}
-      <div className="bg-[#FFFFEB] border-b border-[#1A1A1A]/8 px-4 py-2.5 text-xs sm:text-sm text-center font-medium flex items-center justify-center gap-2">
-        <span className="inline-block w-2 h-2 rounded-full bg-[#10B981] animate-pulse"></span>
-        <span className="text-[#1A1A1A]/90">
-          <strong>LynxHub 2.0 is live:</strong> Branded Short Links + Link-in-Bio Hubs with sub-50ms edge redirection.
-        </span>
-        <a
-          href="#sandbox"
-          className="underline decoration-[#1A1A1A]/30 hover:decoration-[#034F46] text-[#034F46] ml-1 font-semibold flex items-center gap-0.5"
-        >
-          Try live demo <ArrowRight className="w-3.5 h-3.5" />
-        </a>
-      </div>
-
-      {/* Floating Island Glass Navbar (Wispr Flow style) */}
-      <header className="sticky top-4 z-50 px-4 sm:px-6 max-w-6xl mx-auto">
-        <nav className="wispr-glass-nav rounded-full px-4 sm:px-6 py-3 flex items-center justify-between shadow-sm">
-          {/* Brand Logo */}
+      {/* Floating Island Glass Navbar (Wispr Flow exact replica from screenshot) */}
+      <header className="pt-6 px-4 max-w-4xl mx-auto relative z-30">
+        <nav className="bg-[#FAF9F5] sm:bg-[#FAF9F5]/90 backdrop-blur-md border border-[#E2DDD0] rounded-2xl px-6 py-2.5 flex items-center justify-between shadow-[0_2px_12px_rgba(0,0,0,0.025)]">
+          {/* Brand Logo & Pill Switcher */}
           <div className="flex items-center gap-3">
             <Link to="/" className="flex items-center gap-2 group">
-              <div className="w-8 h-8 rounded-full bg-[#034F46] text-[#FFFFEB] flex items-center justify-center font-bold text-base shadow-sm group-hover:scale-105 transition-transform">
-                <LinkIcon className="w-4 h-4" />
-              </div>
-              <span className="font-editorial text-2xl font-bold tracking-tight text-[#1A1A1A]">
-                Lynx<span className="italic font-normal text-[#034F46]">Flow</span>
+              <span className="flex items-center gap-[2.5px] h-4.5 text-[#1A1A1A]">
+                <span className="w-[2.5px] h-2.5 bg-[#1A1A1A] rounded-full"></span>
+                <span className="w-[2.5px] h-4.5 bg-[#1A1A1A] rounded-full"></span>
+                <span className="w-[2.5px] h-3.5 bg-[#1A1A1A] rounded-full"></span>
+                <span className="w-[2.5px] h-2 bg-[#1A1A1A] rounded-full"></span>
+              </span>
+              <span className="font-bold text-[19px] text-[#1A1A1A] tracking-tight">
+                Flow
               </span>
             </Link>
 
-            {/* Segmented Pill Switcher (Wispr Flow Dictation vs Notetaker) */}
-            <div className="hidden md:flex items-center bg-[#1A1A1A]/5 p-1 rounded-full text-xs font-semibold ml-2">
+            {/* Segmented Pill Switcher */}
+            <div className="hidden sm:flex items-center bg-[#EAE5DB] p-1 rounded-full text-xs font-semibold ml-2">
               <button
                 onClick={() => setActiveTab('dictation')}
-                className={`px-3 py-1 rounded-full transition-all cursor-pointer ${
+                className={`px-3.5 py-1 rounded-full transition-all cursor-pointer ${
                   activeTab === 'dictation'
-                    ? 'bg-[#FFFFEB] text-[#1A1A1A] shadow-xs'
-                    : 'text-[#1A1A1A]/60 hover:text-[#1A1A1A]'
+                    ? 'bg-white text-[#1A1A1A] shadow-xs'
+                    : 'text-[#5C554E] hover:text-[#1A1A1A]'
                 }`}
               >
-                Branded Links
+                Dictation
               </button>
               <button
                 onClick={() => setActiveTab('notetaker')}
-                className={`px-3 py-1 rounded-full transition-all cursor-pointer ${
+                className={`px-3.5 py-1 rounded-full transition-all cursor-pointer ${
                   activeTab === 'notetaker'
-                    ? 'bg-[#FFFFEB] text-[#1A1A1A] shadow-xs'
-                    : 'text-[#1A1A1A]/60 hover:text-[#1A1A1A]'
+                    ? 'bg-white text-[#1A1A1A] shadow-xs'
+                    : 'text-[#5C554E] hover:text-[#1A1A1A]'
                 }`}
               >
-                Bio Hub
+                Notetaker
               </button>
             </div>
           </div>
 
-          {/* Desktop Nav Links */}
-          <div className="hidden lg:flex items-center gap-6 text-sm font-medium text-[#1A1A1A]/75">
-            <a href="#features" className="hover:text-[#034F46] transition-colors">Features</a>
-            <a href="#performance" className="hover:text-[#034F46] transition-colors">Performance</a>
-            <a href="#destinations" className="hover:text-[#034F46] transition-colors">Integrations</a>
-            <a href="#sandbox" className="hover:text-[#034F46] transition-colors">Playground</a>
-            <a href="#faq" className="hover:text-[#034F46] transition-colors">FAQ</a>
+          {/* Nav Links */}
+          <div className="hidden md:flex items-center gap-6 text-xs font-medium text-[#4D4740]">
+            <a href="#destinations" className="hover:text-[#1A1A1A] transition-colors">Business</a>
+            <a href="#sandbox" className="hover:text-[#1A1A1A] transition-colors">Pricing</a>
+            <a href="#performance" className="hover:text-[#1A1A1A] transition-colors">Lab</a>
           </div>
 
-          {/* Action CTAs */}
-          <div className="flex items-center gap-3">
-            <Link
-              to="/login"
-              className="text-xs sm:text-sm font-medium text-[#1A1A1A]/75 hover:text-[#034F46] px-2 py-1"
-            >
-              Sign in
-            </Link>
-            <Button
-              variant="pill-primary"
-              size="sm"
+          {/* Action Button */}
+          <div className="flex items-center gap-2">
+            <button
               onClick={() => navigate('/signup')}
-              className="hidden sm:inline-flex"
+              className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#EBDDFF] hover:bg-[#E0CCFF] text-[#1A1A1A] border border-[#1A1A1A] text-xs font-semibold shadow-xs transition-all cursor-pointer"
             >
-              Get started free
-            </Button>
+              <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 16 16">
+                <path d="M0 2.25L6.5 1.3v6.2H0V2.25zm0 6.15h6.5v6.2L0 13.65V8.4zm7.5-7.25L16 0v7.5H7.5V1.15zm8.5 7.25V16l-8.5-1.15V8.4H16z" />
+              </svg>
+              <span>Get started on Windows</span>
+            </button>
 
             {/* Mobile Hamburger */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-1.5 text-[#1A1A1A] lg:hidden rounded-full hover:bg-[#1A1A1A]/5 cursor-pointer"
+              className="p-1.5 text-[#1A1A1A] md:hidden rounded-full hover:bg-[#1A1A1A]/5 cursor-pointer"
               aria-label="Toggle menu"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -195,181 +176,139 @@ export const LandingPage: React.FC = () => {
           </div>
         </nav>
 
-        {/* Mobile Dropdown Drawer */}
+        {/* Mobile Menu Drawer */}
         {mobileMenuOpen && (
-          <div className="lg:hidden mt-2 p-4 wispr-glass-nav rounded-3xl shadow-xl flex flex-col gap-3 animate-in fade-in slide-in-from-top-2 duration-200">
-            <div className="flex items-center bg-[#1A1A1A]/5 p-1 rounded-full text-xs font-semibold mb-2">
+          <div className="md:hidden mt-2 p-4 bg-[#FAF9F5] border border-[#E5E0D4] rounded-2xl shadow-xl flex flex-col gap-3 animate-in fade-in slide-in-from-top-2 duration-200">
+            <div className="flex items-center bg-[#EAE5DB] p-1 rounded-full text-xs font-semibold mb-2">
               <button
                 onClick={() => { setActiveTab('dictation'); setMobileMenuOpen(false); }}
                 className={`flex-1 py-1.5 rounded-full transition-all ${
-                  activeTab === 'dictation' ? 'bg-[#FFFFEB] text-[#1A1A1A] shadow-xs' : 'text-[#1A1A1A]/60'
+                  activeTab === 'dictation' ? 'bg-white text-[#1A1A1A] shadow-xs' : 'text-[#5C554E]'
                 }`}
               >
-                Branded Links
+                Dictation
               </button>
               <button
                 onClick={() => { setActiveTab('notetaker'); setMobileMenuOpen(false); }}
                 className={`flex-1 py-1.5 rounded-full transition-all ${
-                  activeTab === 'notetaker' ? 'bg-[#FFFFEB] text-[#1A1A1A] shadow-xs' : 'text-[#1A1A1A]/60'
+                  activeTab === 'notetaker' ? 'bg-white text-[#1A1A1A] shadow-xs' : 'text-[#5C554E]'
                 }`}
               >
-                Bio Hub
+                Notetaker
               </button>
             </div>
-            <a href="#features" onClick={() => setMobileMenuOpen(false)} className="px-3 py-2 text-sm font-medium hover:text-[#034F46]">Features</a>
-            <a href="#performance" onClick={() => setMobileMenuOpen(false)} className="px-3 py-2 text-sm font-medium hover:text-[#034F46]">Performance</a>
-            <a href="#destinations" onClick={() => setMobileMenuOpen(false)} className="px-3 py-2 text-sm font-medium hover:text-[#034F46]">Integrations</a>
-            <a href="#sandbox" onClick={() => setMobileMenuOpen(false)} className="px-3 py-2 text-sm font-medium hover:text-[#034F46]">Live Playground</a>
-            <a href="#faq" onClick={() => setMobileMenuOpen(false)} className="px-3 py-2 text-sm font-medium hover:text-[#034F46]">FAQ</a>
-            <div className="pt-2 border-t border-[#1A1A1A]/10 flex flex-col gap-2">
-              <Link to="/login" className="text-center py-2 text-sm font-medium">Log in</Link>
-              <Button variant="pill-primary" size="md" onClick={() => navigate('/signup')}>
-                Get started for free
-              </Button>
-            </div>
+            <a href="#destinations" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs font-medium">Business</a>
+            <a href="#sandbox" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs font-medium">Pricing</a>
+            <a href="#performance" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs font-medium">Lab</a>
+            <Link to="/login" className="px-3 py-1.5 text-xs font-medium text-[#1A1A1A]/70">Sign In</Link>
           </div>
         )}
       </header>
 
-      {/* Hero Section (Wispr Flow Signature Aesthetic) */}
-      <section className="pt-16 sm:pt-24 pb-12 sm:pb-20 px-4 text-center relative overflow-hidden">
-        <div className="max-w-4xl mx-auto">
-          {/* Tag Badge */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#E8ECE9] text-[#034F46] text-xs font-semibold tracking-wider uppercase mb-6">
-            <Sparkles className="w-3.5 h-3.5 text-[#10B981]" />
-            <span>LYNXFLOW SHORT-LINK & BIO INFRASTRUCTURE</span>
+      {/* Hero Section (Wispr Flow Exact Layout from Image) */}
+      <section className="pt-12 sm:pt-16 pb-14 sm:pb-20 px-4 text-center relative overflow-hidden min-h-[580px] sm:min-h-[660px] flex flex-col justify-between">
+        
+        {/* SVG Ribbon Curve 1 (Left Loop with moving draft text) */}
+        <div className="absolute left-[-110px] sm:left-[-70px] md:left-[-30px] lg:left-[-10px] top-[4%] sm:top-[8%] w-[48vw] max-w-[580px] min-w-[340px] pointer-events-none z-10">
+          <svg id="hero-svg" viewBox="0 0 1048 594" className="w-full h-auto overflow-visible" fill="none">
+            <path
+              id="curve1"
+              d="M0.597656 50.924805 
+              C17.4612 143.2965 61.94 299.86 398.60 360.27 
+              C594.00 395.31 772.77 285.92 668.74 149.27 
+              C564.71 12.62 340.74 270.96 667.04 470.42 
+              C719.69 506.55 817.468 561.26 1046.43 565.235"
+              stroke="transparent"
+            />
+            <text x="-2947" className="text-[15px] sm:text-[16px] font-semibold fill-[#1A1A1A] tracking-tight">
+              <textPath id="marquee-text-hero1" xlinkHref="#curve1" style={{ fill: '#1A1A1A', opacity: 0.26 }}>
+                Umm, hope your week has started well…I was talking to Cheyene earlier but reception was really bad and I think their going to handle the first part of the project, but I’m not totally sure. Also, I told the team the the new timeline should be ready by Friday, although it’s probably going to slip. There’s been a lot of back and forth and honestly the the whole thing’s been kind of chaotic, like nobody really knows what’s going on so can you check in with them and see if the notes from yesterday’s meeting were sent out, or if they’re still waiting. I think Cheyene mentioned it but didn’t confirm, and now I’m a little lost.
+              </textPath>
+              <animate id="marquee1-anim" attributeName="x" dur="35s" values="-2947; 0" repeatCount="indefinite" />
+            </text>
+          </svg>
+        </div>
+
+        {/* Hero Content Block */}
+        <div className="max-w-4xl mx-auto relative z-20 my-auto">
+          {/* Centered Category Tag */}
+          <div className="text-[11px] sm:text-xs font-semibold tracking-[0.25em] text-[#7A736B] uppercase mb-4">
+            WISPR FLOW DICTATION
           </div>
 
           {/* Signature Editorial Serif Headline */}
-          <h1 className="text-4xl sm:text-6xl md:text-7xl font-editorial font-normal tracking-tight text-[#1A1A1A] leading-[1.08] mb-6">
-            Don’t just share links,<br />
-            <em className="italic text-[#034F46] font-normal">craft an experience.</em>
+          <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-[5.5rem] font-editorial font-normal tracking-tight text-[#1A1A1A] leading-[1.04] mb-5">
+            Don’t type,<br />
+            <em className="italic font-normal">just speak.</em>
           </h1>
 
           {/* Subtitle */}
-          <p className="text-base sm:text-xl text-[#1A1A1A]/70 max-w-2xl mx-auto leading-relaxed mb-8">
-            The next-generation link platform that turns messy URLs into branded, sub-50ms experiences with privacy-preserving telemetry and creator bio hubs.
+          <p className="text-base sm:text-lg md:text-xl text-[#3A3530] max-w-lg mx-auto leading-relaxed font-normal mb-8">
+            The voice-to-text AI that turns speech<br className="hidden sm:inline" /> into clear, polished writing in every app.
           </p>
 
-          {/* Button Group */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-6">
-            <Button
-              variant="pill-primary"
-              size="pill-lg"
+          {/* CTA Button */}
+          <div className="flex flex-col items-center justify-center">
+            <button
               onClick={() => navigate('/signup')}
-              className="w-full sm:w-auto shadow-lg shadow-[#034F46]/20"
+              className="inline-flex items-center gap-2 px-6 py-3 sm:px-7 sm:py-3.5 rounded-xl bg-[#EBDDFF] hover:bg-[#E0CCFF] text-[#1A1A1A] border-2 border-[#1A1A1A] font-semibold text-sm sm:text-base shadow-xs hover:shadow-md active:scale-[0.98] transition-all cursor-pointer"
             >
-              Get started for free
-            </Button>
-            <a
-              href="#sandbox"
-              className="w-full sm:w-auto inline-flex items-center justify-center font-medium rounded-full bg-[#FFFFEB] hover:bg-[#F4F3DE] text-[#1A1A1A] border border-[#1A1A1A]/12 text-sm sm:text-base px-6 py-3 shadow-xs transition-all"
-            >
-              Try live demo
-            </a>
+              <svg className="w-4 h-4 fill-current" viewBox="0 0 16 16">
+                <path d="M0 2.25L6.5 1.3v6.2H0V2.25zm0 6.15h6.5v6.2L0 13.65V8.4zm7.5-7.25L16 0v7.5H7.5V1.15zm8.5 7.25V16l-8.5-1.15V8.4H16z" />
+              </svg>
+              <span>Get started on Windows</span>
+            </button>
+            <p className="text-xs text-[#7A736B] mt-3.5">
+              Available on Mac, Windows, iPhone, and Android
+            </p>
           </div>
-
-          <p className="text-xs sm:text-sm text-[#1A1A1A]/50">
-            Available on Web, Chrome Extension, Node/Go API, and Mobile Bio
-          </p>
         </div>
 
-        {/* Signature Wispr Flow SVG Curved Ribbon Motion */}
-        <div className="mt-12 sm:mt-16 max-w-5xl mx-auto relative px-2">
-          <div className="relative rounded-3xl p-6 sm:p-10 bg-gradient-to-b from-[#FAF9F5] via-[#FFFFEB]/60 to-[#F2F1E8] border border-[#1A1A1A]/8 overflow-hidden shadow-sm">
-            
-            {/* Background SVG Wave Ribbon with moving text */}
-            <div className="absolute inset-0 opacity-25 pointer-events-none overflow-hidden">
-              <svg className="w-full h-full" viewBox="0 0 1000 300" fill="none" preserveAspectRatio="none">
-                <path
-                  id="heroWavePath"
-                  d="M0,150 C200,60 350,240 500,150 C650,60 800,240 1000,150"
-                  stroke="#034F46"
-                  strokeWidth="2"
-                  strokeDasharray="6 6"
-                />
-              </svg>
-            </div>
+        {/* Central Soundwave Pill and Bottom-Right Black Ribbon */}
+        <div className="relative z-20 flex items-center justify-center mt-12 sm:mt-16 w-full">
+          {/* Soundwave Pill Badge (Centered) */}
+          <div className="bg-white border-2 border-[#1A1A1A] rounded-full px-5 py-2 sm:px-6 sm:py-2.5 shadow-lg flex items-center gap-[3px] z-30">
+            {[5, 10, 16, 8, 22, 28, 20, 14, 26, 16, 24, 18, 14, 20, 10, 5].map((h, i) => (
+              <div
+                key={i}
+                className="w-[2.5px] sm:w-[3px] bg-[#1A1A1A] rounded-full"
+                style={{
+                  height: `${h}px`,
+                  animation: `soundwave 1.2s ease-in-out infinite alternate ${i * 0.07}s`
+                }}
+              />
+            ))}
+          </div>
 
-            {/* Visual Transformation: Clumsy Raw Link -> LynxFlow Engine -> Polished Branded Short Link */}
-            <div className="grid grid-cols-1 md:grid-cols-11 gap-4 items-center relative z-10">
-              
-              {/* Left Column: Raw Clumsy Tracking Link */}
-              <div className="md:col-span-4 bg-white/85 backdrop-blur-md p-4 sm:p-5 rounded-2xl border border-[#1A1A1A]/8 text-left shadow-xs">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-[11px] font-semibold text-rose-600 uppercase tracking-wider flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
-                    Raw Clumsy URL
-                  </span>
-                  <span className="text-[11px] text-[#1A1A1A]/40">148 chars</span>
-                </div>
-                <div className="font-mono text-xs text-[#1A1A1A]/60 break-all bg-[#1A1A1A]/3 p-2.5 rounded-xl">
-                  https://myshop.co/collections/winter-sale-2026/product/78391?utm_source=twitter&utm_medium=cpc&utm_campaign=winter_launch&ref=affiliate_94
-                </div>
-                <div className="mt-2 text-[11px] text-[#1A1A1A]/50 flex items-center gap-1">
-                  <span>Slow 480ms</span> • <span>Zero brand trust</span> • <span>Exposes UTM clutter</span>
-                </div>
-              </div>
-
-              {/* Center Column: LynxFlow Engine with Animated Soundwave Bars */}
-              <div className="md:col-span-3 flex flex-col items-center justify-center py-2">
-                <div className="bg-[#062823] text-[#FFFFEB] px-5 py-4 rounded-3xl border border-[#10B981]/30 shadow-xl flex flex-col items-center gap-2.5 animate-glow-pulse">
-                  <div className="flex items-center gap-1.5">
-                    <div className="w-2 h-2 rounded-full bg-[#10B981] animate-ping"></div>
-                    <span className="text-xs font-bold tracking-wider uppercase text-[#FFFFEB]">LYNXFLOW ENGINE</span>
-                  </div>
-
-                  {/* Wispr Flow Soundwave / Pulse Bars */}
-                  <div className="flex items-center gap-1 h-8 px-2">
-                    {[12, 24, 16, 28, 20, 32, 22, 14, 26, 18, 10].map((h, i) => (
-                      <div
-                        key={i}
-                        className="w-1 bg-[#10B981] rounded-full transition-all duration-300"
-                        style={{
-                          height: `${h}px`,
-                          animation: `soundwave 1.2s ease-in-out infinite alternate ${i * 0.1}s`
-                        }}
-                      />
-                    ))}
-                  </div>
-
-                  <div className="text-[10px] text-[#FFFFEB]/80 font-mono flex items-center gap-1">
-                    <span>⚡ SHA-256 HASHED</span> • <span>38ms REDIRECT</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Right Column: Polished Branded Short Link & Bio Preview */}
-              <div className="md:col-span-4 bg-white/90 backdrop-blur-md p-4 sm:p-5 rounded-2xl border border-[#034F46]/20 text-left shadow-sm">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-[11px] font-semibold text-[#034F46] uppercase tracking-wider flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#10B981]"></span>
-                    Branded Short Link
-                  </span>
-                  <span className="text-[11px] text-[#034F46] font-semibold">22 chars</span>
-                </div>
-                <div className="flex items-center justify-between bg-[#FFFFEB] border border-[#034F46]/15 p-2.5 rounded-xl">
-                  <span className="font-mono text-sm font-semibold text-[#034F46]">
-                    lynx.to/winter-drop
-                  </span>
-                  <button
-                    onClick={() => handleCopy('https://lynx.to/winter-drop')}
-                    className="p-1 rounded-lg hover:bg-[#1A1A1A]/5 text-[#1A1A1A]/70 cursor-pointer"
-                    title="Copy short link"
-                  >
-                    {copiedLink ? <Check className="w-4 h-4 text-[#10B981]" /> : <Copy className="w-4 h-4" />}
-                  </button>
-                </div>
-                <div className="mt-2 text-[11px] text-[#034F46] font-medium flex items-center justify-between">
-                  <span>Edge Cache: 28ms</span>
-                  <span>Direct QR ready</span>
-                </div>
-              </div>
-
-            </div>
+          {/* SVG Ribbon Curve 2 (Starts right at the soundwave pill and sweeps upwards to the right) */}
+          <div
+            className="absolute bottom-[-16px] sm:bottom-[-20px] pointer-events-none z-10 overflow-visible"
+            style={{
+              left: 'calc(50% - 25px)',
+              width: '54vw',
+              maxWidth: '820px',
+              minWidth: '420px'
+            }}
+          >
+            <svg viewBox="0 0 1024 620" className="w-full h-auto overflow-visible" fill="none">
+              <path
+                id="curve2"
+                d="M2.04309 563.872 C111.592 558.268 316.491 554.016 517.963 490.064 C703.017 431.323 875.319 444.531 1021.88 453.216"
+                stroke="#1A1A1A"
+                strokeWidth="36"
+                strokeLinecap="round"
+              />
+              <text x="-4018" className="text-[15px] sm:text-[16px] font-semibold fill-[#FFFFEB] tracking-tight">
+                <textPath id="marquee-text-hero2" xlinkHref="#curve2" startOffset="0%" style={{ fill: '#FFFFEB' }}>
+                  Hope your week is off to a good start. I was talking to Cheyene earlier, but the reception was really bad. I think they’re going to handle the first part of the project, but I’m not totally sure. I also told the team the new timeline should be ready by Friday — although it might slip. There’s been a lot of back and forth, and honestly, the whole thing has been a bit chaotic. It feels like nobody really knows what’s going on. Can you check in with them and see if the notes from yesterday’s meeting were sent out, or if they’re still waiting? I think Cheyene mentioned it, but didn’t confirm — and now I’m a little lost!
+                </textPath>
+                <animate id="marquee2-anim" attributeName="x" dur="50s" values="-4018; 0" repeatCount="indefinite" />
+              </text>
+            </svg>
           </div>
         </div>
       </section>
+
 
       {/* Infinite Logo Ticker (Wispr Flow style) */}
       <section className="py-10 border-y border-[#1A1A1A]/6 overflow-hidden bg-[#FFFFEB]/40">
