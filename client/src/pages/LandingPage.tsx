@@ -109,18 +109,18 @@ export const LandingPage: React.FC = () => {
           {/* Brand Logo & Pill Switcher */}
           <div className="flex items-center gap-3">
             <Link to="/" className="flex items-center gap-2 group">
-              <span className="flex items-center gap-[2.5px] h-4.5 text-[#034F46]">
-                <span className="w-[2.5px] h-2.5 bg-[#034F46] rounded-full"></span>
-                <span className="w-[2.5px] h-4.5 bg-[#034F46] rounded-full"></span>
-                <span className="w-[2.5px] h-3.5 bg-[#034F46] rounded-full"></span>
-                <span className="w-[2.5px] h-2 bg-[#034F46] rounded-full"></span>
+              <span className="flex items-center gap-[2.5px] h-4.5 text-[#1A1A1A]">
+                <span className="w-[2.5px] h-2 bg-[#1A1A1A] rounded-full"></span>
+                <span className="w-[2.5px] h-4 bg-[#1A1A1A] rounded-full"></span>
+                <span className="w-[2.5px] h-3 bg-[#1A1A1A] rounded-full"></span>
+                <span className="w-[2.5px] h-1.5 bg-[#1A1A1A] rounded-full"></span>
               </span>
               <span className="font-bold text-[19px] text-[#1A1A1A] tracking-tight">
-                LynxHub
+                Flow
               </span>
             </Link>
 
-            {/* Segmented Pill Switcher for LynxHub's 2 core products */}
+            {/* Segmented Pill Switcher */}
             <div className="hidden sm:flex items-center bg-[#EAE5DB] p-1 rounded-full text-xs font-semibold ml-2">
               <button
                 onClick={() => setActiveTab('shortlinks')}
@@ -130,7 +130,7 @@ export const LandingPage: React.FC = () => {
                     : 'text-[#5C554E] hover:text-[#1A1A1A]'
                 }`}
               >
-                Short Links
+                Dictation
               </button>
               <button
                 onClick={() => setActiveTab('biohub')}
@@ -140,17 +140,16 @@ export const LandingPage: React.FC = () => {
                     : 'text-[#5C554E] hover:text-[#1A1A1A]'
                 }`}
               >
-                Bio Hub
+                Notetaker
               </button>
             </div>
           </div>
 
           {/* Nav Links */}
           <div className="hidden md:flex items-center gap-6 text-xs font-medium text-[#4D4740]">
-            <a href="#destinations" className="hover:text-[#034F46] transition-colors">Ecosystem</a>
-            <a href="#sandbox" className="hover:text-[#034F46] transition-colors">Live Demo</a>
-            <a href="#performance" className="hover:text-[#034F46] transition-colors">Edge Speed</a>
-            <a href="#faq" className="hover:text-[#034F46] transition-colors">FAQ</a>
+            <a href="#business" className="hover:text-[#1A1A1A] transition-colors">Business</a>
+            <a href="#pricing" className="hover:text-[#1A1A1A] transition-colors">Pricing</a>
+            <a href="#lab" className="hover:text-[#1A1A1A] transition-colors">Lab</a>
           </div>
 
           {/* Action Button */}
@@ -159,8 +158,10 @@ export const LandingPage: React.FC = () => {
               onClick={() => navigate('/signup')}
               className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#EBDDFF] hover:bg-[#E0CCFF] text-[#1A1A1A] border border-[#1A1A1A] text-xs font-semibold shadow-xs transition-all cursor-pointer active:scale-95"
             >
-              <Zap className="w-3.5 h-3.5 fill-[#1A1A1A]" />
-              <span>Get started free</span>
+              <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 16 16">
+                <path d="M0 2.25L6.5 1.3v6.2H0V2.25zm0 6.15h6.5v6.2L0 13.65V8.4zm7.5-7.25L16 0v7.5H7.5V1.15zm8.5 7.25V16l-8.5-1.15V8.4H16z" />
+              </svg>
+              <span>Get started on Windows</span>
             </button>
 
             {/* Mobile Hamburger */}
@@ -184,7 +185,7 @@ export const LandingPage: React.FC = () => {
                   activeTab === 'shortlinks' ? 'bg-white text-[#1A1A1A] shadow-xs font-bold' : 'text-[#5C554E]'
                 }`}
               >
-                Short Links
+                Dictation
               </button>
               <button
                 onClick={() => { setActiveTab('biohub'); setMobileMenuOpen(false); }}
@@ -192,148 +193,132 @@ export const LandingPage: React.FC = () => {
                   activeTab === 'biohub' ? 'bg-white text-[#1A1A1A] shadow-xs font-bold' : 'text-[#5C554E]'
                 }`}
               >
-                Bio Hub
+                Notetaker
               </button>
             </div>
-            <a href="#destinations" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs font-medium">Ecosystem</a>
-            <a href="#sandbox" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs font-medium">Live Demo</a>
-            <a href="#performance" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs font-medium">Edge Speed</a>
+            <a href="#business" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs font-medium">Business</a>
+            <a href="#pricing" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs font-medium">Pricing</a>
+            <a href="#lab" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs font-medium">Lab</a>
             <Link to="/login" className="px-3 py-1.5 text-xs font-medium text-[#1A1A1A]/70">Sign In</Link>
           </div>
         )}
       </header>
 
-      {/* Hero Section (Wispr Flow Exact Layout adapted for LynxHub) */}
-      <section className="pt-12 sm:pt-16 pb-14 sm:pb-20 px-4 text-center relative overflow-hidden min-h-[580px] sm:min-h-[660px] flex flex-col justify-between">
-        
-        {/* SVG Ribbon Curve 1 (Left Loop with moving draft/raw input) */}
-        <div className="absolute left-[-110px] sm:left-[-70px] md:left-[-30px] lg:left-[-10px] top-[4%] sm:top-[8%] w-[48vw] max-w-[580px] min-w-[340px] pointer-events-none z-10">
-          <svg id="hero-svg" viewBox="0 0 1048 594" className="w-full h-auto overflow-visible" fill="none">
-            <path
-              id="curve1"
-              d="M0.597656 50.924805 
-              C17.4612 143.2965 61.94 299.86 398.60 360.27 
-              C594.00 395.31 772.77 285.92 668.74 149.27 
-              C564.71 12.62 340.74 270.96 667.04 470.42 
-              C719.69 506.55 817.468 561.26 1046.43 565.235"
-              stroke="transparent"
-            />
-            <text x="-2947" className="text-[15px] sm:text-[16px] font-mono font-semibold fill-[#1A1A1A] tracking-tight">
-              <textPath id="marquee-text-hero1" xlinkHref="#curve1" style={{ fill: '#1A1A1A', opacity: 0.28 }}>
-                {activeTab === 'shortlinks'
-                  ? "https://mystore.co/products/summer-drop-2026/item?utm_source=twitter&utm_medium=cpc&utm_campaign=summer_launch&ref=affiliate_849204&fbclid=IwAR294810294810294... slow 480ms hop ... raw unhashed IP logged ... zero brand trust ... messy 168 chars ... UTM clutter exposed ... breaks on mobile ... DNS query stall ... third party ad pixel injected ... uncompressed redirect chain ..."
-                  : "instagram.com/alex?ig_profile_bio ... twitter.com/alexrivera ... youtube.com/channel/UC78294 ... open.spotify.com/artist/382940 ... fragmented follower clicks ... slow mobile webview loading ... unbranded link tree ... bloated tracking scripts ... cluttered bio space ..."
-                }
-              </textPath>
-              <animate id="marquee1-anim" attributeName="x" dur="35s" values="-2947; 0" repeatCount="indefinite" />
-            </text>
-          </svg>
-        </div>
-
-        {/* Hero Content Block */}
-        <div className="max-w-4xl mx-auto relative z-20 my-auto">
-          {/* Centered Category Tag */}
-          <div className="text-[11px] sm:text-xs font-semibold tracking-[0.25em] text-[#7A736B] uppercase mb-4">
-            {activeTab === 'shortlinks' ? 'BRANDED SHORT LINKS • EDGE INFRASTRUCTURE' : 'CREATOR BIO HUBS • MODULAR CANVAS'}
-          </div>
-
+      {/* Hero Section (Wispr Flow Exact Layout from Screenshot) */}
+      <section className="pt-12 sm:pt-16 pb-0 px-4 text-center relative overflow-hidden flex flex-col items-center">
+        {/* Centerpiece Content Block */}
+        <div className="max-w-4xl mx-auto relative z-20 text-center mb-6 sm:mb-8">
           {/* Signature Editorial Serif Headline */}
-          <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-[5.5rem] font-editorial font-normal tracking-tight text-[#1A1A1A] leading-[1.04] mb-5">
-            {activeTab === 'shortlinks' ? (
-              <>
-                Don’t just share links,<br />
-                <em className="italic font-normal">make them flow.</em>
-              </>
-            ) : (
-              <>
-                One link in bio,<br />
-                <em className="italic font-normal">infinite presence.</em>
-              </>
-            )}
+          <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-[5.75rem] font-editorial font-normal tracking-tight text-[#1A1A1A] leading-[1.04] mb-5">
+            Don’t type,<br />
+            <em className="italic font-normal">just speak.</em>
           </h1>
 
           {/* Subtitle */}
-          <p className="text-base sm:text-lg md:text-xl text-[#3A3530] max-w-lg mx-auto leading-relaxed font-normal mb-8">
-            {activeTab === 'shortlinks'
-              ? 'The next-generation link infrastructure that transforms ugly URLs into high-converting, sub-50ms branded short links.'
-              : 'Curate your videos, newsletters, merch, and social channels in a blisteringly fast, customizable mobile hub built for creators.'
-            }
+          <p className="text-base sm:text-lg md:text-xl text-[#3A3530] max-w-lg mx-auto leading-relaxed font-normal mb-8 text-balance">
+            The voice-to-text AI that turns speech into clear, polished writing in every app.
           </p>
 
-          {/* CTA Button */}
+          {/* Windows Download CTA */}
           <div className="flex flex-col items-center justify-center">
             <button
-              onClick={() => {
-                if (activeTab === 'shortlinks') {
-                  const el = document.getElementById('sandbox');
-                  if (el) el.scrollIntoView({ behavior: 'smooth' });
-                  else navigate('/signup');
-                } else {
-                  navigate('/signup');
-                }
-              }}
-              className="inline-flex items-center gap-2 px-6 py-3 sm:px-7 sm:py-3.5 rounded-xl bg-[#EBDDFF] hover:bg-[#E0CCFF] text-[#1A1A1A] border-2 border-[#1A1A1A] font-semibold text-sm sm:text-base shadow-xs hover:shadow-md active:scale-[0.98] transition-all cursor-pointer"
+              onClick={() => navigate('/signup')}
+              className="inline-flex items-center gap-2.5 px-6 py-3 sm:px-7 sm:py-3.5 rounded-xl bg-[#EBDDFF] hover:bg-[#E0CCFF] text-[#1A1A1A] border-2 border-[#1A1A1A] font-semibold text-sm sm:text-base shadow-xs hover:shadow-md active:scale-[0.98] transition-all cursor-pointer"
             >
-              <Zap className="w-4 h-4 fill-[#1A1A1A]" />
-              <span>{activeTab === 'shortlinks' ? 'Create free branded link' : 'Build your Bio Hub free'}</span>
+              <svg className="w-4 h-4 fill-current" viewBox="0 0 16 16">
+                <path d="M0 2.25L6.5 1.3v6.2H0V2.25zm0 6.15h6.5v6.2L0 13.65V8.4zm7.5-7.25L16 0v7.5H7.5V1.15zm8.5 7.25V16l-8.5-1.15V8.4H16z" />
+              </svg>
+              <span>Get started on Windows</span>
             </button>
             <p className="text-xs text-[#7A736B] mt-3.5">
-              Sub-50ms global edge redirects • 100% Zero-PII privacy • No credit card required
+              Available on Mac, Windows, iPhone, and Android
             </p>
           </div>
         </div>
 
-        {/* Central Soundwave / Latency Pill & Bottom-Right Black Ribbon */}
-        <div className="relative z-20 flex items-center justify-center mt-12 sm:mt-16 w-full">
-          {/* Edge Engine Pill Badge (Centered) */}
-          <div className="bg-white border-2 border-[#1A1A1A] rounded-full px-5 py-2 sm:px-6 sm:py-2.5 shadow-lg flex items-center gap-[3px] z-30">
-            <span className="text-[11px] font-mono font-bold text-[#034F46] mr-1.5 flex items-center gap-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#10B981] animate-pulse"></span>
-              38ms
-            </span>
-            {[5, 10, 16, 8, 22, 28, 20, 14, 26, 16, 24, 18, 14, 20, 10, 5].map((h, i) => (
-              <div
-                key={i}
-                className="w-[2.5px] sm:w-[3px] bg-[#1A1A1A] rounded-full"
-                style={{
-                  height: `${h}px`,
-                  animation: `soundwave 1.2s ease-in-out infinite alternate ${i * 0.07}s`
-                }}
-              />
-            ))}
-            <span className="text-[10px] font-semibold text-[#1A1A1A]/60 ml-1.5 uppercase tracking-wider hidden sm:inline">
-              Edge
-            </span>
-          </div>
+        {/* Hero Continuous Trail of Words Animation Wrapper */}
+        <div className="relative w-full overflow-visible z-10 flex justify-center -mt-[18vw] sm:-mt-[21vw] mb-12 sm:mb-16 pointer-events-none origin-bottom scale-[1.3] sm:scale-[1.45] md:scale-[1.5]">
+          <div className="w-full flex relative overflow-visible">
+            {/* Left Half: Curve 1 (Speech Loop) */}
+            <div className="w-1/2 flex justify-end relative -mt-[9px] overflow-visible">
+              <svg
+                id="hero-svg"
+                viewBox="0 0 1048 594"
+                className="w-full h-auto overflow-visible"
+                fill="none"
+              >
+                <path
+                  id="curve1"
+                  d="M0.597656 50.924805 C17.4612 143.2965 61.94 299.86 398.60 360.27 C594.00 395.31 772.77 285.92 668.74 149.27 C564.71 12.62 340.74 270.96 667.04 470.42 C719.69 506.55 817.468 561.26 1046.43 565.235"
+                  stroke="transparent"
+                  fill="none"
+                />
+                <text className="text-[16.5px] sm:text-[17.5px] font-sans font-semibold tracking-tight" style={{ fill: '#1A1A1A', opacity: 0.28 }}>
+                  <textPath id="marquee-text-hero1" xlinkHref="#curve1" startOffset="0%">
+                    project, but I’m not totally sure. Also, I told the team the the new timeline should be ready by Friday, although it’s probably going to slip. There’s been a lot of back and forth and honestly the the whole thing’s been kind of chaotic, like nobody really knows what’s going on so can you check in with them and see if the notes from yesterday’s meeting were sent out, or if they’re still waiting. I think Cheyene mentioned it but didn’t confirm, and now I’m a little lost. Umm, hope your week has started well… I was talking to Cheyene earlier but reception was really bad and I think their going to handle the first part of the project, but I’m not totally sure. Also, I told the team the the new timeline should be ready by Friday, although it’s probably going to slip. There’s been a lot of back and forth
+                  </textPath>
+                  <animate attributeName="startOffset" from="0%" to="-100%" dur="42s" repeatCount="indefinite" />
+                </text>
+              </svg>
+            </div>
 
-          {/* SVG Ribbon Curve 2 (Starts right at the engine pill and sweeps upwards to the right) */}
-          <div
-            className="absolute bottom-[-16px] sm:bottom-[-20px] pointer-events-none z-10 overflow-visible"
-            style={{
-              left: 'calc(50% - 25px)',
-              width: '54vw',
-              maxWidth: '820px',
-              minWidth: '420px'
-            }}
-          >
-            <svg viewBox="0 0 1024 620" className="w-full h-auto overflow-visible" fill="none">
-              <path
-                id="curve2"
-                d="M2.04309 563.872 C111.592 558.268 316.491 554.016 517.963 490.064 C703.017 431.323 875.319 444.531 1021.88 453.216"
-                stroke="#1A1A1A"
-                strokeWidth="36"
-                strokeLinecap="round"
-              />
-              <text x="-4018" className="text-[15px] sm:text-[16px] font-semibold fill-[#FFFFEB] tracking-tight">
-                <textPath id="marquee-text-hero2" xlinkHref="#curve2" startOffset="0%" style={{ fill: '#FFFFEB' }}>
-                  {activeTab === 'shortlinks'
-                    ? "⚡ lynx.to/summer-drop • 38ms Edge Redirection • SHA-256 Hashed Zero-PII Telemetry • Dynamic High-Res QR Code • Universal Slack & Twitter Expand • 4x Higher Click-Through Rate • SOC-2 Compliant Privacy • Instant Geolocation Analytics • 99.99% Uptime SLA • Instant Custom Vanity Slug •"
-                    : "✨ lynx.to/bio/alex • All Social Links Unified • 3 Curated Minimal Themes • Instant QR Badge Ready • Zero-Ad Privacy Compliance • 1-Click Social Media Embeds • Real-Time Mobile Preview • Sub-50ms Global Edge Redirection • Creator Verified Profile •"
-                  }
-                </textPath>
-                <animate id="marquee2-anim" attributeName="x" dur="50s" values="-4018; 0" repeatCount="indefinite" />
-              </text>
-            </svg>
+            {/* Central Soundwave Pill & Removed Repetition Badge (Seamlessly Connected at Junction) */}
+            <div
+              className="absolute z-20 flex flex-col items-center gap-2 pointer-events-auto"
+              style={{
+                left: 'calc(50% - 28px)',
+                bottom: '7.8%',
+                transform: 'translate(-50%, 50%)'
+              }}
+            >
+              {/* Dark Green Badge: ✓ Removed repetition */}
+              <div className="inline-flex items-center gap-1.5 px-3.5 py-1 sm:px-4 sm:py-1.5 rounded-full bg-[#06372E] text-white text-[11px] sm:text-xs font-semibold shadow-md whitespace-nowrap">
+                <Check className="w-3.5 h-3.5 text-white stroke-[3]" />
+                <span>Removed repetition</span>
+              </div>
+
+              {/* Soundwave Pill */}
+              <div className="bg-white border-2 border-[#1A1A1A] rounded-full px-4 py-1.5 sm:px-5 sm:py-2 shadow-lg flex items-center gap-[2.5px] sm:gap-[3px]">
+                {[6, 12, 18, 10, 24, 30, 22, 16, 28, 18, 26, 20, 15, 22, 12, 6].map((h, i) => (
+                  <div
+                    key={i}
+                    className="w-[2.5px] sm:w-[3px] bg-[#1A1A1A] rounded-full"
+                    style={{
+                      height: `${h}px`,
+                      animation: `soundwave 1.2s ease-in-out infinite alternate ${i * 0.07}s`
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Right Half: Curve 2 (Black Polished Ribbon) */}
+            <div className="w-1/2 flex justify-start relative overflow-visible">
+              <svg
+                viewBox="0 0 1024 620"
+                className="w-full h-auto overflow-visible"
+                fill="none"
+              >
+                <path
+                  id="curve2"
+                  d="M2.04309 563.872C111.592 558.268 316.491 554.016 517.963 490.064C703.017 431.323 875.319 444.531 1021.88 453.216"
+                  stroke="#1A1A1A"
+                  strokeWidth="34"
+                  strokeLinecap="round"
+                  fill="none"
+                />
+                <text
+                  className="text-[14.5px] sm:text-[15.5px] font-sans font-semibold tracking-tight"
+                  style={{ fill: '#FFFFEB' }}
+                  dominantBaseline="central"
+                >
+                  <textPath id="marquee-text-hero2" xlinkHref="#curve2" startOffset="8px">
+                    of back and forth, and honestly, the whole thing has been a bit chaotic. It feels like nobody really knows what’s going on. Can you check in with them and see if the notes from yesterday’s meeting were sent out, or if they’re still waiting? I think Cheyene mentioned it, but didn’t confirm — and now I’m a little lost! Hope your week is off to a good start. I was talking to Cheyene earlier, but the reception was really bad. I think they’re going to handle the first part of the project, but I’m not totally sure. I also told the team the new timeline should be ready by Friday — although it might slip. There’s been a lot of back and forth, and honestly, the whole thing has been a bit chaotic. It feels like nobody really knows what’s going on...
+                  </textPath>
+                  <animate attributeName="startOffset" from="8px" to="-1200px" dur="38s" repeatCount="indefinite" />
+                </text>
+              </svg>
+            </div>
           </div>
         </div>
       </section>
