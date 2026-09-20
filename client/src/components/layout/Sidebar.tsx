@@ -8,7 +8,6 @@ import {
   Settings,
   Plus,
   Zap,
-  Link as LinkIcon,
 } from 'lucide-react';
 import { Button } from '../ui/Button';
 
@@ -44,11 +43,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ onOpenCreateModal, isOpen = fa
       >
         <div className="h-16 flex items-center px-6 border-b border-[#1A1A1A]/8">
           <Link to="/" className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-full bg-[#034F46] text-[#FFFFEB] flex items-center justify-center font-bold text-sm shadow-sm">
-              <LinkIcon className="w-4 h-4" />
-            </div>
+            <img src="/logo.png" alt="LynxHub" className="w-8 h-8 object-contain" />
             <span className="text-xl font-editorial font-bold text-[#1A1A1A] tracking-tight">
-              Lynx<span className="italic font-normal text-[#034F46]">Flow</span>
+              Lynx<span className="text-[#034F46]">Hub</span>
             </span>
           </Link>
         </div>

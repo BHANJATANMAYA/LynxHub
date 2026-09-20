@@ -5,7 +5,7 @@ import { useToast } from '../../context/ToastContext';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '../../components/ui/Card';
 import { Input } from '../../components/ui/Input';
 import { Button } from '../../components/ui/Button';
-import { Mail, Lock, ArrowRight, Link as LinkIcon, ArrowLeft } from 'lucide-react';
+import { Mail, Lock, ArrowRight, ArrowLeft } from 'lucide-react';
 
 export const LoginPage: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -50,11 +50,11 @@ export const LoginPage: React.FC = () => {
       <div className="w-full max-w-md space-y-6">
         {/* Brand Logo & Header */}
         <div className="text-center space-y-2">
-          <Link to="/" className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-[#034F46] text-[#FFFFEB] shadow-md shadow-[#034F46]/20 mb-2">
-            <LinkIcon className="w-6 h-6" />
+          <Link to="/" className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-white border border-[#1A1A1A]/8 shadow-xs hover:scale-105 transition-transform mb-2">
+            <img src="/logo.png" alt="LynxHub Logo" className="w-8 h-8 object-contain" />
           </Link>
           <h1 className="text-3xl font-editorial font-bold text-[#1A1A1A] tracking-tight">
-            Sign in to <span className="italic text-[#034F46]">LynxFlow</span>
+            Sign in to <span className="text-[#034F46]">LynxHub</span>
           </h1>
           <p className="text-xs text-[#1A1A1A]/60">
             Branded short links, click telemetry, and creator bio hubs.

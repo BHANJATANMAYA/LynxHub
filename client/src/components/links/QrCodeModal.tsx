@@ -64,7 +64,7 @@ export const QrCodeModal: React.FC<QrCodeModalProps> = ({ link, onClose }) => {
             level="H"
             includeMargin
             imageSettings={{
-              src: '/logo.svg',
+              src: '/logo.png',
               x: undefined,
               y: undefined,
               height: 32,

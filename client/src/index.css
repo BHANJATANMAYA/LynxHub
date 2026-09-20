@@ -173,6 +173,27 @@ body {
   animation: glowPulse 3s ease-in-out infinite;
 }
 
+/* Sonar pulse animation around soundwave pill */
+@keyframes sonarRing {
+  0% {
+    transform: scale(0.92);
+    opacity: 0.85;
+  }
+  100% {
+    transform: scale(1.65);
+    opacity: 0;
+  }
+}
+
+.animate-sonar {
+  animation: sonarRing 1.8s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+.animate-sonar-delayed {
+  animation: sonarRing 1.8s cubic-bezier(0.16, 1, 0.3, 1) infinite 0.6s;
+}
+
+
 /* Custom modern scrollbars */
 ::-webkit-scrollbar {
   width: 6px;

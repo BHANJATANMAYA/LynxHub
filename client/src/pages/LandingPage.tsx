@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   ArrowRight,
@@ -21,11 +21,76 @@ import { Button } from '../components/ui/Button';
 export const LandingPage: React.FC = () => {
   const navigate = useNavigate();
 
+  const textPathRef1 = useRef<SVGTextPathElement>(null);
+  const textPathRef2 = useRef<SVGTextPathElement>(null);
+
+  const rawUrlText = "https://store.acme.co/products/summer-drop-2026/item?utm_source=twitter&utm_medium=cpc&utm_campaign=summer_launch&ref=affiliate_849204... slow 480ms hop ... raw unhashed IP logged ... zero brand trust ... messy 168 chars ... UTM clutter exposed ... breaks on mobile ... DNS query stall ... third party ad pixel injected ... uncompressed redirect chain ... ";
+  const rawUrlMarquee = rawUrlText.repeat(4);
+
+  const cleanLinkText = "lynx.to/summer-drop • 38ms global edge redirect • 100% privacy-preserving hashed IP telemetry • instant SVG QR code ready • OpenGraph preview rich card • zero tracking pixels • verified creator badge • universal mobile deep-link • SOC-2 & GDPR compliant • instant 302 redirect ... ";
+  const cleanLinkMarquee = cleanLinkText.repeat(4);
+
+  useEffect(() => {
+    let animId: number;
+    let offset1 = 0;
+    let offset2 = 8;
+    let singleLen1 = 0;
+    let singleLen2 = 0;
+
+    const measure = () => {
+      if (textPathRef1.current) {
+        try {
+          const total = textPathRef1.current.getComputedTextLength();
+          if (total > 0) singleLen1 = total / 4;
+        } catch {
+          singleLen1 = 1800;
+        }
+      }
+      if (textPathRef2.current) {
+        try {
+          const total = textPathRef2.current.getComputedTextLength();
+          if (total > 0) singleLen2 = total / 4;
+        } catch {
+          singleLen2 = 1800;
+        }
+      }
+      if (!singleLen1) singleLen1 = 1800;
+      if (!singleLen2) singleLen2 = 1800;
+    };
+
+    measure();
+
+    const animate = () => {
+      offset1 -= 0.65;
+      offset2 -= 0.75;
+
+      if (Math.abs(offset1) >= singleLen1) {
+        offset1 += singleLen1;
+      }
+      if (Math.abs(offset2) >= singleLen2) {
+        offset2 += singleLen2;
+      }
+
+      if (textPathRef1.current) {
+        textPathRef1.current.setAttribute('startOffset', `${offset1}px`);
+      }
+      if (textPathRef2.current) {
+        textPathRef2.current.setAttribute('startOffset', `${offset2}px`);
+      }
+
+      animId = requestAnimationFrame(animate);
+    };
+
+    animId = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(animId);
+  }, []);
+
   const [activeTab, setActiveTab] = useState<'shortlinks' | 'biohub'>('shortlinks'); // Branded Links vs Bio Hub
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [copiedLink, setCopiedLink] = useState(false);
   const [activeFaqIndex, setActiveFaqIndex] = useState(0);
   const [destination, setDestination] = useState<'slack' | 'twitter' | 'claude' | 'gmail' | 'bio'>('slack');
+  const [isPillActive, setIsPillActive] = useState(false); // Proximity/hover state for soundwave pill and repetition badge
 
   // Interactive Live Shortener state
   const [inputUrl, setInputUrl] = useState('https://github.com/lynxhub/nextgen-link-infrastructure');
@@ -103,24 +168,23 @@ export const LandingPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-[#FAF9F5] text-[#1A1A1A] selection:bg-[#034F46] selection:text-[#FFFFEB] font-sans-ui overflow-x-hidden">
       
-      {/* Floating Island Glass Navbar (Wispr Flow exact replica from screenshot) */}
+      {/* Floating Island Glass Navbar */}
       <header className="pt-6 px-4 max-w-4xl mx-auto relative z-30">
         <nav className="bg-[#FAF9F5] sm:bg-[#FAF9F5]/90 backdrop-blur-md border border-[#E2DDD0] rounded-2xl px-6 py-2.5 flex items-center justify-between shadow-[0_2px_12px_rgba(0,0,0,0.025)]">
           {/* Brand Logo & Pill Switcher */}
           <div className="flex items-center gap-3">
-            <Link to="/" className="flex items-center gap-2 group">
-              <span className="flex items-center gap-[2.5px] h-4.5 text-[#1A1A1A]">
-                <span className="w-[2.5px] h-2 bg-[#1A1A1A] rounded-full"></span>
-                <span className="w-[2.5px] h-4 bg-[#1A1A1A] rounded-full"></span>
-                <span className="w-[2.5px] h-3 bg-[#1A1A1A] rounded-full"></span>
-                <span className="w-[2.5px] h-1.5 bg-[#1A1A1A] rounded-full"></span>
-              </span>
+            <Link to="/" className="flex items-center gap-2.5 group">
+              <img
+                src="/logo.png"
+                alt="LynxHub Logo"
+                className="w-7 h-7 object-contain group-hover:scale-105 transition-transform"
+              />
               <span className="font-bold text-[19px] text-[#1A1A1A] tracking-tight">
-                Flow
+                Lynx<span className="text-[#034F46]">Hub</span>
               </span>
             </Link>
 
-            {/* Segmented Pill Switcher */}
+            {/* Segmented Pill Switcher (Short Links vs Bio Hub) */}
             <div className="hidden sm:flex items-center bg-[#EAE5DB] p-1 rounded-full text-xs font-semibold ml-2">
               <button
                 onClick={() => setActiveTab('shortlinks')}
@@ -130,7 +194,7 @@ export const LandingPage: React.FC = () => {
                     : 'text-[#5C554E] hover:text-[#1A1A1A]'
                 }`}
               >
-                Dictation
+                Short Links
               </button>
               <button
                 onClick={() => setActiveTab('biohub')}
@@ -140,28 +204,32 @@ export const LandingPage: React.FC = () => {
                     : 'text-[#5C554E] hover:text-[#1A1A1A]'
                 }`}
               >
-                Notetaker
+                Bio Hub
               </button>
             </div>
           </div>
 
           {/* Nav Links */}
           <div className="hidden md:flex items-center gap-6 text-xs font-medium text-[#4D4740]">
-            <a href="#business" className="hover:text-[#1A1A1A] transition-colors">Business</a>
-            <a href="#pricing" className="hover:text-[#1A1A1A] transition-colors">Pricing</a>
-            <a href="#lab" className="hover:text-[#1A1A1A] transition-colors">Lab</a>
+            <a href="#destinations" className="hover:text-[#1A1A1A] transition-colors">Ecosystem</a>
+            <a href="#sandbox" className="hover:text-[#1A1A1A] transition-colors">Live Sandbox</a>
+            <a href="#performance" className="hover:text-[#1A1A1A] transition-colors">Edge Speed</a>
           </div>
 
-          {/* Action Button */}
-          <div className="flex items-center gap-2">
+          {/* Action Buttons */}
+          <div className="flex items-center gap-2.5">
+            <Link
+              to="/login"
+              className="hidden sm:inline-block text-xs font-semibold text-[#1A1A1A]/70 hover:text-[#1A1A1A] transition-colors px-2 py-1.5"
+            >
+              Sign In
+            </Link>
             <button
               onClick={() => navigate('/signup')}
-              className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#EBDDFF] hover:bg-[#E0CCFF] text-[#1A1A1A] border border-[#1A1A1A] text-xs font-semibold shadow-xs transition-all cursor-pointer active:scale-95"
+              className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#034F46] hover:bg-[#023B34] text-[#FFFFEB] text-xs font-semibold shadow-xs transition-all cursor-pointer active:scale-95"
             >
-              <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 16 16">
-                <path d="M0 2.25L6.5 1.3v6.2H0V2.25zm0 6.15h6.5v6.2L0 13.65V8.4zm7.5-7.25L16 0v7.5H7.5V1.15zm8.5 7.25V16l-8.5-1.15V8.4H16z" />
-              </svg>
-              <span>Get started on Windows</span>
+              <Zap className="w-3.5 h-3.5 fill-[#FFFFEB]" />
+              <span>Get started free</span>
             </button>
 
             {/* Mobile Hamburger */}
@@ -185,7 +253,7 @@ export const LandingPage: React.FC = () => {
                   activeTab === 'shortlinks' ? 'bg-white text-[#1A1A1A] shadow-xs font-bold' : 'text-[#5C554E]'
                 }`}
               >
-                Dictation
+                Short Links
               </button>
               <button
                 onClick={() => { setActiveTab('biohub'); setMobileMenuOpen(false); }}
@@ -193,47 +261,49 @@ export const LandingPage: React.FC = () => {
                   activeTab === 'biohub' ? 'bg-white text-[#1A1A1A] shadow-xs font-bold' : 'text-[#5C554E]'
                 }`}
               >
-                Notetaker
+                Bio Hub
               </button>
             </div>
-            <a href="#business" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs font-medium">Business</a>
-            <a href="#pricing" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs font-medium">Pricing</a>
-            <a href="#lab" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs font-medium">Lab</a>
+            <a href="#destinations" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs font-medium">Ecosystem</a>
+            <a href="#sandbox" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs font-medium">Live Sandbox</a>
+            <a href="#performance" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs font-medium">Edge Speed</a>
             <Link to="/login" className="px-3 py-1.5 text-xs font-medium text-[#1A1A1A]/70">Sign In</Link>
+            <Link to="/signup" className="px-3 py-2 text-xs font-semibold bg-[#034F46] text-[#FFFFEB] rounded-xl text-center">Get started free</Link>
           </div>
         )}
       </header>
 
-      {/* Hero Section (Wispr Flow Exact Layout from Screenshot) */}
+      {/* Hero Section */}
       <section className="pt-12 sm:pt-16 pb-0 px-4 text-center relative overflow-hidden flex flex-col items-center">
         {/* Centerpiece Content Block */}
         <div className="max-w-4xl mx-auto relative z-20 text-center mb-6 sm:mb-8">
+          {/* Centered Category Tag */}
+          <div className="text-[11px] sm:text-xs font-semibold tracking-[0.2em] text-[#7A736B] uppercase mb-4">
+            {activeTab === 'shortlinks' ? 'BRANDED SHORT LINKS • SUB-50MS EDGE REDIRECTS' : 'CREATOR BIO HUBS • MODULAR CANVAS'}
+          </div>
+
           {/* Signature Editorial Serif Headline */}
           <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-[5.75rem] font-editorial font-normal tracking-tight text-[#1A1A1A] leading-[1.04] mb-5">
-            Don’t type,<br />
-            <em className="italic font-normal">just speak.</em>
+            {activeTab === 'shortlinks' ? (
+              <>
+                Don’t just share links,<br />
+                <em className="italic font-normal">make them flow.</em>
+              </>
+            ) : (
+              <>
+                One link in bio,<br />
+                <em className="italic font-normal">infinite presence.</em>
+              </>
+            )}
           </h1>
 
           {/* Subtitle */}
-          <p className="text-base sm:text-lg md:text-xl text-[#3A3530] max-w-lg mx-auto leading-relaxed font-normal mb-8 text-balance">
-            The voice-to-text AI that turns speech into clear, polished writing in every app.
+          <p className="text-base sm:text-lg md:text-xl text-[#3A3530] max-w-xl mx-auto leading-relaxed font-normal mb-2 text-balance">
+            {activeTab === 'shortlinks'
+              ? 'The next-generation link infrastructure that transforms ugly URLs into high-converting, sub-50ms branded short links.'
+              : 'Curate your videos, newsletters, merch, and social channels in a blisteringly fast mobile hub built for creators.'
+            }
           </p>
-
-          {/* Windows Download CTA */}
-          <div className="flex flex-col items-center justify-center">
-            <button
-              onClick={() => navigate('/signup')}
-              className="inline-flex items-center gap-2.5 px-6 py-3 sm:px-7 sm:py-3.5 rounded-xl bg-[#EBDDFF] hover:bg-[#E0CCFF] text-[#1A1A1A] border-2 border-[#1A1A1A] font-semibold text-sm sm:text-base shadow-xs hover:shadow-md active:scale-[0.98] transition-all cursor-pointer"
-            >
-              <svg className="w-4 h-4 fill-current" viewBox="0 0 16 16">
-                <path d="M0 2.25L6.5 1.3v6.2H0V2.25zm0 6.15h6.5v6.2L0 13.65V8.4zm7.5-7.25L16 0v7.5H7.5V1.15zm8.5 7.25V16l-8.5-1.15V8.4H16z" />
-              </svg>
-              <span>Get started on Windows</span>
-            </button>
-            <p className="text-xs text-[#7A736B] mt-3.5">
-              Available on Mac, Windows, iPhone, and Android
-            </p>
-          </div>
         </div>
 
         {/* Hero Continuous Trail of Words Animation Wrapper */}
@@ -253,42 +323,85 @@ export const LandingPage: React.FC = () => {
                   stroke="transparent"
                   fill="none"
                 />
-                <text className="text-[16.5px] sm:text-[17.5px] font-sans font-semibold tracking-tight" style={{ fill: '#1A1A1A', opacity: 0.28 }}>
-                  <textPath id="marquee-text-hero1" xlinkHref="#curve1" startOffset="0%">
-                    project, but I’m not totally sure. Also, I told the team the the new timeline should be ready by Friday, although it’s probably going to slip. There’s been a lot of back and forth and honestly the the whole thing’s been kind of chaotic, like nobody really knows what’s going on so can you check in with them and see if the notes from yesterday’s meeting were sent out, or if they’re still waiting. I think Cheyene mentioned it but didn’t confirm, and now I’m a little lost. Umm, hope your week has started well… I was talking to Cheyene earlier but reception was really bad and I think their going to handle the first part of the project, but I’m not totally sure. Also, I told the team the the new timeline should be ready by Friday, although it’s probably going to slip. There’s been a lot of back and forth
+                <text className="text-[16.5px] sm:text-[17.5px] font-mono font-semibold tracking-tight select-none" style={{ fill: '#1A1A1A', opacity: 0.28 }}>
+                  <textPath ref={textPathRef1} id="marquee-text-hero1" href="#curve1" xlinkHref="#curve1" startOffset="0px">
+                    {rawUrlMarquee}
                   </textPath>
-                  <animate attributeName="startOffset" from="0%" to="-100%" dur="42s" repeatCount="indefinite" />
                 </text>
               </svg>
             </div>
 
-            {/* Central Soundwave Pill & Removed Repetition Badge (Seamlessly Connected at Junction) */}
+            {/* Central Edge Engine Pill & Cleaned Clutter Badge (Seamlessly Connected at Junction) */}
             <div
-              className="absolute z-20 flex flex-col items-center gap-2 pointer-events-auto"
+              className="absolute z-20 pointer-events-auto cursor-pointer select-none"
               style={{
                 left: 'calc(50% - 28px)',
                 bottom: '7.8%',
                 transform: 'translate(-50%, 50%)'
               }}
+              onMouseEnter={() => setIsPillActive(true)}
+              onMouseLeave={() => setIsPillActive(false)}
+              onClick={() => setIsPillActive(prev => !prev)}
             >
-              {/* Dark Green Badge: ✓ Removed repetition */}
-              <div className="inline-flex items-center gap-1.5 px-3.5 py-1 sm:px-4 sm:py-1.5 rounded-full bg-[#06372E] text-white text-[11px] sm:text-xs font-semibold shadow-md whitespace-nowrap">
-                <Check className="w-3.5 h-3.5 text-white stroke-[3]" />
-                <span>Removed repetition</span>
-              </div>
+              {/* Generous proximity hit zone around the pill */}
+              <div className="relative p-8 -m-8 flex flex-col items-center justify-center">
+                
+                {/* Sonar / Radar Ripple Waves (Animate outward when user gets around this) */}
+                <div
+                  className={`absolute inset-0 m-auto w-36 h-14 rounded-full pointer-events-none transition-opacity duration-500 ${
+                    isPillActive ? 'opacity-100' : 'opacity-0'
+                  }`}
+                >
+                  <div className="absolute inset-0 rounded-full border-2 border-[#06372E]/40 animate-sonar" />
+                  <div className="absolute inset-0 rounded-full border border-[#034F46]/30 animate-sonar-delayed" />
+                  <div className="absolute inset-0 rounded-full bg-[#034F46]/15 blur-md scale-110" />
+                </div>
 
-              {/* Soundwave Pill */}
-              <div className="bg-white border-2 border-[#1A1A1A] rounded-full px-4 py-1.5 sm:px-5 sm:py-2 shadow-lg flex items-center gap-[2.5px] sm:gap-[3px]">
-                {[6, 12, 18, 10, 24, 30, 22, 16, 28, 18, 26, 20, 15, 22, 12, 6].map((h, i) => (
-                  <div
-                    key={i}
-                    className="w-[2.5px] sm:w-[3px] bg-[#1A1A1A] rounded-full"
-                    style={{
-                      height: `${h}px`,
-                      animation: `soundwave 1.2s ease-in-out infinite alternate ${i * 0.07}s`
-                    }}
-                  />
-                ))}
+                {/* Pop-in Badge: ✓ Cleaned UTM clutter (Appears with spring physics when user gets around this) */}
+                <div
+                  className={`absolute bottom-full mb-3 flex flex-col items-center transition-all duration-400 ease-[cubic-bezier(0.34,1.56,0.64,1)] ${
+                    isPillActive
+                      ? 'opacity-100 translate-y-0 scale-100 pointer-events-auto'
+                      : 'opacity-0 translate-y-3 scale-75 pointer-events-none'
+                  }`}
+                >
+                  <div className="relative inline-flex items-center gap-1.5 px-3.5 py-1 sm:px-4 sm:py-1.5 rounded-full bg-[#06372E] text-white text-[11px] sm:text-xs font-semibold shadow-xl whitespace-nowrap">
+                    <Check
+                      className={`w-3.5 h-3.5 text-white stroke-[3] transition-transform duration-300 delay-100 ${
+                        isPillActive ? 'scale-100 rotate-0' : 'scale-0 -rotate-45'
+                      }`}
+                    />
+                    <span>{activeTab === 'shortlinks' ? 'Cleaned UTM clutter' : 'Unified creator hub'}</span>
+                    {/* Speech bubble pointer arrow */}
+                    <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-[#06372E] rotate-45" />
+                  </div>
+                </div>
+
+                {/* Edge Engine Latency Pill (Reacts and elevates when user gets around this) */}
+                <div
+                  className={`relative z-10 bg-white rounded-full px-4 py-1.5 sm:px-5 sm:py-2 flex items-center gap-[2.5px] sm:gap-[3px] transition-all duration-300 ${
+                    isPillActive
+                      ? 'border-2 border-[#06372E] scale-105 shadow-2xl ring-4 ring-[#06372E]/10'
+                      : 'border-2 border-[#1A1A1A] shadow-lg hover:shadow-xl'
+                  }`}
+                >
+                  <span className="text-[11px] font-mono font-bold text-[#034F46] mr-1.5 flex items-center gap-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#10B981] animate-pulse"></span>
+                    38ms
+                  </span>
+                  {[6, 12, 18, 10, 24, 30, 22, 16, 28, 18, 26, 20, 15, 22, 12, 6].map((h, i) => (
+                    <div
+                      key={i}
+                      className={`w-[2.5px] sm:w-[3px] rounded-full transition-colors duration-300 ${
+                        isPillActive ? 'bg-[#06372E]' : 'bg-[#1A1A1A]'
+                      }`}
+                      style={{
+                        height: `${h}px`,
+                        animation: `soundwave ${isPillActive ? '0.7s' : '1.2s'} ease-in-out infinite alternate ${i * (isPillActive ? 0.04 : 0.07)}s`
+                      }}
+                    />
+                  ))}
+                </div>
               </div>
             </div>
 
@@ -308,14 +421,13 @@ export const LandingPage: React.FC = () => {
                   fill="none"
                 />
                 <text
-                  className="text-[14.5px] sm:text-[15.5px] font-sans font-semibold tracking-tight"
+                  className="text-[14.5px] sm:text-[15.5px] font-sans font-semibold tracking-tight select-none"
                   style={{ fill: '#FFFFEB' }}
                   dominantBaseline="central"
                 >
-                  <textPath id="marquee-text-hero2" xlinkHref="#curve2" startOffset="8px">
-                    of back and forth, and honestly, the whole thing has been a bit chaotic. It feels like nobody really knows what’s going on. Can you check in with them and see if the notes from yesterday’s meeting were sent out, or if they’re still waiting? I think Cheyene mentioned it, but didn’t confirm — and now I’m a little lost! Hope your week is off to a good start. I was talking to Cheyene earlier, but the reception was really bad. I think they’re going to handle the first part of the project, but I’m not totally sure. I also told the team the new timeline should be ready by Friday — although it might slip. There’s been a lot of back and forth, and honestly, the whole thing has been a bit chaotic. It feels like nobody really knows what’s going on...
+                  <textPath ref={textPathRef2} id="marquee-text-hero2" href="#curve2" xlinkHref="#curve2" startOffset="8px">
+                    {cleanLinkMarquee}
                   </textPath>
-                  <animate attributeName="startOffset" from="8px" to="-1200px" dur="38s" repeatCount="indefinite" />
                 </text>
               </svg>
             </div>
@@ -893,42 +1005,6 @@ export const LandingPage: React.FC = () => {
           <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/20 to-black/60" />
           <div className="absolute inset-0 bg-black/20 backdrop-blur-[0.3px]" />
 
-          {/* Floating Pill Mini-Navbar inside Banner */}
-          <div className="relative z-20 max-w-4xl mx-auto w-full">
-            <div className="bg-[#FFFFEB] text-[#1A1A1A] rounded-full px-4 sm:px-6 py-2.5 flex items-center justify-between shadow-xl border border-black/10">
-              <div className="flex items-center gap-3">
-                <div className="flex items-center gap-1.5 font-bold font-editorial text-xl text-[#1A1A1A]">
-                  <span className="flex items-center gap-0.5 h-4">
-                    <span className="w-0.5 h-2.5 bg-[#034F46] rounded-full"></span>
-                    <span className="w-0.5 h-4 bg-[#034F46] rounded-full"></span>
-                    <span className="w-0.5 h-3 bg-[#034F46] rounded-full"></span>
-                    <span className="w-0.5 h-1.5 bg-[#034F46] rounded-full"></span>
-                  </span>
-                  <span>LynxHub</span>
-                </div>
-
-                <div className="flex items-center bg-[#1A1A1A]/5 p-0.5 rounded-full text-xs font-semibold">
-                  <span className="bg-white text-[#1A1A1A] px-3 py-1 rounded-full shadow-xs">Short Links</span>
-                  <span className="text-[#1A1A1A]/60 px-3 py-1 rounded-full">Bio Hub</span>
-                </div>
-              </div>
-
-              <div className="hidden md:flex items-center gap-6 text-xs font-medium text-[#1A1A1A]/75">
-                <a href="#destinations" className="hover:text-[#034F46]">Ecosystem</a>
-                <a href="#sandbox" className="hover:text-[#034F46]">Live Demo</a>
-                <a href="#performance" className="hover:text-[#034F46]">Edge Speed</a>
-              </div>
-
-              <button
-                onClick={() => navigate('/signup')}
-                className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#EBDDFF] hover:bg-[#E0CCFF] text-[#1A1A1A] text-xs font-semibold shadow-xs transition-all cursor-pointer"
-              >
-                <Zap className="w-3.5 h-3.5 fill-[#1A1A1A]" />
-                <span>Get started free</span>
-              </button>
-            </div>
-          </div>
-
           {/* Centerpiece Editorial Typography */}
           <div className="relative z-20 text-center my-auto py-10 max-w-3xl mx-auto">
             <h2 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-editorial font-normal text-white tracking-tight leading-[1.05] mb-6 drop-shadow-md">
@@ -1010,47 +1086,8 @@ export const LandingPage: React.FC = () => {
 
           </div>
 
-          {/* Navigation Links Directory */}
-          <div className="py-8 grid grid-cols-2 sm:grid-cols-4 gap-6 text-xs text-[#1A1A1A]/70">
-            <div>
-              <h5 className="font-bold uppercase tracking-wider text-[#1A1A1A] mb-3">Product</h5>
-              <ul className="space-y-2">
-                <li><a href="#features" className="hover:text-[#034F46]">Branded Links</a></li>
-                <li><a href="#destinations" className="hover:text-[#034F46]">Link-in-Bio</a></li>
-                <li><a href="#sandbox" className="hover:text-[#034F46]">Web Playground</a></li>
-                <li><a href="#performance" className="hover:text-[#034F46]">Edge Architecture</a></li>
-              </ul>
-            </div>
-            <div>
-              <h5 className="font-bold uppercase tracking-wider text-[#1A1A1A] mb-3">Developers</h5>
-              <ul className="space-y-2">
-                <li><Link to="/login" className="hover:text-[#034F46]">REST API</Link></li>
-                <li><Link to="/login" className="hover:text-[#034F46]">Rate Limits</Link></li>
-                <li><Link to="/login" className="hover:text-[#034F46]">SDK & Webhooks</Link></li>
-                <li><Link to="/login" className="hover:text-[#034F46]">SOC 2 Security</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h5 className="font-bold uppercase tracking-wider text-[#1A1A1A] mb-3">Security & Privacy</h5>
-              <ul className="space-y-2">
-                <li><span className="text-[#10B981] font-semibold">✓ SHA-256 Salted</span></li>
-                <li><span>✓ Zero PII Stored</span></li>
-                <li><span>✓ GDPR & SOC 2 Ready</span></li>
-                <li><span>✓ 99.99% Uptime SLA</span></li>
-              </ul>
-            </div>
-            <div>
-              <h5 className="font-bold uppercase tracking-wider text-[#1A1A1A] mb-3">Account</h5>
-              <ul className="space-y-2">
-                <li><Link to="/login" className="hover:text-[#034F46]">Sign In</Link></li>
-                <li><Link to="/signup" className="hover:text-[#034F46]">Create Free Account</Link></li>
-                <li><Link to="/dashboard" className="hover:text-[#034F46]">Dashboard Overview</Link></li>
-              </ul>
-            </div>
-          </div>
-
           {/* Bottom Copyright */}
-          <div className="pt-6 border-t border-[#1A1A1A]/8 flex flex-col sm:flex-row items-center justify-between text-xs text-[#1A1A1A]/50 gap-2">
+          <div className="pt-8 border-t border-[#1A1A1A]/8 flex flex-col sm:flex-row items-center justify-between text-xs text-[#1A1A1A]/50 gap-2">
             <p>© 2026 LynxHub Inc. Inspired by Wispr Flow design system & motion aesthetics.</p>
             <div className="flex items-center gap-4">
               <a href="#" className="hover:text-[#034F46]">Privacy Policy</a>
